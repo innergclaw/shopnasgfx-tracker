@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honey & Friends — ShopNasGfx Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #1a1a1a; min-height: 100vh; }
+        .nav { padding: 0.85rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; background: #fff; border-bottom: 1px solid #e9ecef; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { height: 32px; width: auto; border-radius: 6px; }
+        .nav-title { font-size: 0.85rem; font-weight: 600; color: #0088cc; }
+        .project-header { padding: 2rem 1.25rem 1.5rem; background: #fff; border-bottom: 1px solid #e9ecef; }
+        .project-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .project-meta { font-size: 0.75rem; color: #6c757d; }
+        .tracker { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
+        .progress-bar { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 0 0.5rem; }
+        .progress-line { position: absolute; top: 18px; left: 32px; right: 32px; height: 3px; background: #e9ecef; border-radius: 2px; z-index: 0; }
+        .progress-fill { height: 100%; background: #0088cc; border-radius: 2px; transition: width 0.6s ease; }
+        .stage { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; flex: 1; }
+        .stage-dot { width: 36px; height: 36px; border-radius: 50%; background: #e9ecef; border: 3px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #adb5bd; transition: all 0.4s ease; box-shadow: 0 0 0 1px #e9ecef; }
+        .stage.active .stage-dot { background: #0088cc; color: #fff; box-shadow: 0 0 0 1px #0088cc, 0 0 0 4px rgba(0, 136, 204, 0.15); }
+        .stage.completed .stage-dot { background: #0088cc; color: #fff; box-shadow: 0 0 0 1px #0088cc; }
+        .stage-label { font-size: 0.6rem; font-weight: 600; color: #adb5bd; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; }
+        .stage.active .stage-label, .stage.completed .stage-label { color: #1a1a1a; }
+        .stage-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(0, 136, 204, 0.08); border: 1px solid rgba(0, 136, 204, 0.2); border-radius: 10px; font-size: 0.8rem; color: #0088cc; font-weight: 500; text-align: center; }
+        .preview-section { padding: 1.5rem 1.25rem; }
+        .section-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; color: #1a1a1a; }
+        .preview-card { background: #fff; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden; }
+        .preview-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #f0f0f0; display: block; }
+        .preview-placeholder { width: 100%; aspect-ratio: 16/9; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #adb5bd; }
+        .preview-info { padding: 0.75rem 1rem; font-size: 0.72rem; color: #6c757d; }
+        .timeline { padding: 0 1.25rem 1.5rem; }
+        .timeline-item { display: flex; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid #f0f0f0; }
+        .timeline-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 0.35rem; flex-shrink: 0; }
+        .dot-blue { background: #0088cc; }
+        .dot-green { background: #28a745; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-grey { background: #adb5bd; }
+        .timeline-text { font-size: 0.75rem; color: #495057; line-height: 1.4; }
+        .timeline-text strong { color: #1a1a1a; }
+        .timeline-time { font-size: 0.6rem; color: #adb5bd; margin-top: 0.15rem; }
+        .feedback-section { padding: 1.5rem 1.25rem; background: #fff; border-top: 1px solid #e9ecef; }
+        .feedback-form { max-width: 500px; margin: 0 auto; }
+        .feedback-form label { display: block; font-size: 0.72rem; font-weight: 600; color: #495057; margin-bottom: 0.3rem; }
+        .feedback-form input, .feedback-form textarea { width: 100%; padding: 0.65rem 0.85rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; font-size: 0.82rem; font-family: 'Inter', sans-serif; color: #1a1a1a; outline: none; transition: border-color 0.3s; margin-bottom: 0.75rem; }
+        .feedback-form input:focus, .feedback-form textarea:focus { border-color: #0088cc; }
+        .feedback-form textarea { resize: vertical; min-height: 80px; }
+        .submit-btn { width: 100%; padding: 0.75rem; background: #0088cc; color: #fff; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.3s; }
+        .submit-btn:hover { background: #006fa1; }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .feedback-note { font-size: 0.62rem; color: #adb5bd; text-align: center; margin-top: 0.6rem; }
+        .success-box { display: none; text-align: center; padding: 2rem; background: #fff; border: 1px solid #28a745; border-radius: 12px; }
+        .success-box.show { display: block; }
+        .feedback-form.hide { display: none; }
+        .footer { padding: 1.25rem; text-align: center; font-size: 0.6rem; color: #adb5bd; border-top: 1px solid #e9ecef; }
+        .footer a { color: #0088cc; text-decoration: none; }
+        .paid-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(40, 167, 69, 0.08); border: 1px solid rgba(40, 167, 69, 0.2); border-radius: 10px; font-size: 0.8rem; color: #28a745; font-weight: 500; text-align: center; }
+        .feedback-count { display: inline-block; margin-left: 0.5rem; padding: 0.2rem 0.5rem; background: #f59e0b; color: #fff; border-radius: 12px; font-size: 0.65rem; font-weight: 600; }
+        @media (min-width: 768px) {
+            .project-header { padding: 2.5rem 2rem; }
+            .project-name { font-size: 1.5rem; }
+            .tracker { padding: 2rem; }
+            .stage-dot { width: 42px; height: 42px; font-size: 0.8rem; }
+            .progress-line { top: 20px; left: 40px; right: 40px; }
+            .stage-label { font-size: 0.68rem; }
+            .preview-section, .timeline, .feedback-section { padding: 1.5rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+            <div class="nav-title">SHOPNASGFX ORDER TRACKER</div>
+        </div>
+    </nav>
+
+    <div class="project-header">
+        <div class="project-name">Honey & Friends — Logo + Branding</div>
+        <div class="project-meta">Helena · Branding Package · Started 2026-04-01</div>
+    </div>
+
+    <div class="paid-banner">✓ PAID — $175 received</div>
+
+    <div class="tracker">
+        <div class="progress-bar">
+            <div class="progress-line"><div class="progress-fill" style="width:50%"></div></div>
+            <div class="stage completed" data-stage="1">
+                <div class="stage-dot">📋</div>
+                <div class="stage-label">Received</div>
+            </div>
+            <div class="stage completed" data-stage="2">
+                <div class="stage-dot">🎨</div>
+                <div class="stage-label">In Progress</div>
+            </div>
+            <div class="stage active" data-stage="3">
+                <div class="stage-dot">👁️</div>
+                <div class="stage-label">Review</div>
+            </div>
+            <div class="stage" data-stage="4">
+                <div class="stage-dot">✏️</div>
+                <div class="stage-label">Revisions</div>
+            </div>
+            <div class="stage" data-stage="5">
+                <div class="stage-dot">✅</div>
+                <div class="stage-label">Final</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stage-banner">📍 Current Stage: Under Review — 3 feedback items submitted</div>
+
+    <div class="preview-section">
+        <div class="section-title">Current Preview</div>
+        <div class="preview-card">
+            <div class="preview-placeholder" style="padding:2rem;text-align:center;">
+                <div>🎨 <strong>Design in Review</strong><br><br>
+                Concepts have been shared.<br>
+                3 feedback items received — revisions in progress.</div>
+            </div>
+            <div class="preview-info">Updated 2026-04-09 — Awaiting feedback response</div>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="section-title">Activity <span class="feedback-count">3 feedback</span></div>
+        <div id="activityFeed">
+            <div class="timeline-item">
+                <div class="timeline-dot dot-yellow"></div>
+                <div>
+                    <div class="timeline-text"><strong>Feedback Received</strong> — 3 items submitted for revision</div>
+                    <div class="timeline-time">2026-04-09</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot dot-blue"></div>
+                <div>
+                    <div class="timeline-text"><strong>Under Review</strong> — Design concepts sent to client</div>
+                    <div class="timeline-time">2026-04-07</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot dot-green"></div>
+                <div>
+                    <div class="timeline-text"><strong>In Progress</strong> — Logo + branding work started</div>
+                    <div class="timeline-time">2026-04-03</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot dot-green"></div>
+                <div>
+                    <div class="timeline-text"><strong>Payment Received</strong> — $175 paid</div>
+                    <div class="timeline-time">2026-04-01</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot dot-grey"></div>
+                <div>
+                    <div class="timeline-text"><strong>Received</strong> — Order confirmed</div>
+                    <div class="timeline-time">2026-04-01</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feedback-section">
+        <div class="section-title" style="text-align:center;margin-bottom:1rem;">Submit Additional Feedback</div>
+        <div class="feedback-form" id="feedbackForm">
+            <label>Your Name</label>
+            <input type="text" id="fbName" placeholder="Your name" required>
+            <label>Feedback / Changes Needed</label>
+            <textarea id="fbMessage" placeholder="Describe what you'd like changed or any notes..." required></textarea>
+            <label>Reference Image (optional)</label>
+            <input type="url" id="fbImage" placeholder="Paste an image URL if helpful">
+            <button class="submit-btn" id="submitBtn" onclick="submitFeedback()">Submit Feedback</button>
+            <div class="feedback-note">Your feedback will be sent directly to the designer</div>
+        </div>
+        <div class="success-box" id="successBox">
+            <div style="font-size:2rem;margin-bottom:0.5rem;">✓</div>
+            <div style="font-weight:600;margin-bottom:0.25rem;">Feedback Submitted</div>
+            <div style="font-size:0.8rem;color:#6c757d;">The designer has been notified and will update your tracker.</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        ShopNasGfx · <a href="https://innergclaw.github.io/shopnasgfx/">Portfolio</a> · Built by <a href="https://nasirr.innergintel.org">Nasirr Mayo</a>
+    </footer>
+
+    <script>
+        async function submitFeedback() {
+            const name = document.getElementById('fbName').value.trim();
+            const message = document.getElementById('fbMessage').value.trim();
+            const image = document.getElementById('fbImage').value.trim();
+
+            if (!name || !message) return alert('Please fill in your name and feedback.');
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const payload = {
+                    project: 'Honey & Friends',
+                    projectName: 'Honey & Friends — Logo + Branding',
+                    client: 'Helena',
+                    name,
+                    message,
+                    image: image || null,
+                    timestamp: new Date().toISOString()
+                };
+
+                await fetch('https://formspree.io/f/xpwdkqbl', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                fetch('https://ntfy.sh/shopnasgfx-tracker', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Title': '💬 New Feedback: Honey & Friends', 'Priority': 'high', 'Tags': 'feedback' },
+                    body: JSON.stringify({ name, message, project: 'Honey & Friends' })
+                }).catch(() => {});
+
+                document.getElementById('feedbackForm').classList.add('hide');
+                document.getElementById('successBox').classList.add('show');
+            } catch (e) {
+                btn.disabled = false;
+                btn.textContent = 'Submit Feedback';
+                alert('Something went wrong. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
