@@ -52,6 +52,13 @@
         .success-box { display: none; text-align: center; padding: 2rem; background: #fff; border: 1px solid #28a745; border-radius: 12px; }
         .success-box.show { display: block; }
         .feedback-form.hide { display: none; }
+        .admin-login { padding: 1.5rem 1.25rem; background: #fff; border-top: 1px solid #e9ecef; }
+        .admin-section { display: none; padding: 1.5rem 1.25rem; background: #0a0a0a; border-top: 2px solid #0088cc; }
+        .admin-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: #fff; }
+        .admin-form label { display: block; font-size: 0.72rem; font-weight: 600; color: #ccc; margin-bottom: 0.3rem; }
+        .admin-form input, .admin-form textarea, .admin-form select { width: 100%; padding: 0.65rem 0.85rem; background: #111; border: 1px solid #333; border-radius: 8px; font-size: 0.82rem; font-family: 'Inter', sans-serif; color: #fff; outline: none; transition: border-color 0.3s; margin-bottom: 0.75rem; }
+        .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus { border-color: #0088cc; }
+        .admin-form textarea { resize: vertical; min-height: 80px; }
         .footer { padding: 1.25rem; text-align: center; font-size: 0.6rem; color: #adb5bd; border-top: 1px solid #e9ecef; }
         .footer a { color: #0088cc; text-decoration: none; }
         @media (min-width: 768px) {
@@ -182,11 +189,93 @@
         </div>
     </div>
 
+    <div class="admin-login" id="adminLogin">
+        <div class="section-title" style="text-align:center;margin-bottom:1rem;">Designer Admin</div>
+        <div class="feedback-form" style="max-width:500px;margin:0 auto;">
+            <input type="password" id="adminPassword" placeholder="Enter admin password" style="margin-bottom:0.75rem;">
+            <button class="submit-btn" onclick="unlockAdmin()">Unlock Admin Panel</button>
+        </div>
+    </div>
+
+    <div class="admin-section" id="adminSection">
+        <div class="admin-title">Send Client Update</div>
+        <div class="admin-form" style="max-width:500px;margin:0 auto;">
+            <label>Update Message</label>
+            <textarea id="adminMessage" placeholder="What should the client know? E.g., 'Added 3 new logo variations — check the preview section.'"></textarea>
+            <label>New Stage</label>
+            <select id="adminStage">
+                <option value="1">1 - Paid</option>
+                <option value="2" selected>2 - In Progress</option>
+                <option value="3">3 - Review</option>
+                <option value="4">4 - Revisions</option>
+                <option value="5">5 - Final</option>
+            </select>
+            <button class="submit-btn" id="adminSendBtn" onclick="sendClientUpdate()">Send Email Update to Client</button>
+            <div class="feedback-note" style="color:#666;margin-top:0.6rem;">EmailJS sends instantly. You will get an ntfy confirmation.</div>
+        </div>
+    </div>
+
     <footer class="footer">
         ShopNasGfx · <a href="https://innergclaw.github.io/shopnasgfx/">Portfolio</a> · Built by <a href="https://nasirr.innergintel.org">Nasirr Mayo</a>
     </footer>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
+        // === ADMIN CONFIG ===
+        const ADMIN_PASSWORD = "shop2026";
+        const CLIENT_EMAIL = "vivian@example.com"; // TODO: Replace with real client email
+        const PROJECT_NAME = "Miikko.Inc — New Logo Design";
+        const TRACKER_URL = "https://innergclaw.github.io/shopnasgfx-tracker/vivian/";
+        const NTFY_TOPIC = "shopnasgfx-vivian";
+        const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // TODO: Replace after EmailJS signup
+        const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // TODO: Replace after EmailJS signup
+        const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // TODO: Replace after EmailJS signup
+
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+        function unlockAdmin() {
+            if (document.getElementById('adminPassword').value === ADMIN_PASSWORD) {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminSection').style.display = 'block';
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        async function sendClientUpdate() {
+            const msg = document.getElementById('adminMessage').value.trim();
+            const stage = document.getElementById('adminStage').value;
+            if (!msg) return alert('Enter an update message.');
+
+            const btn = document.getElementById('adminSendBtn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            try {
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                    to_email: CLIENT_EMAIL,
+                    project_name: PROJECT_NAME,
+                    tracker_url: TRACKER_URL,
+                    message: msg,
+                    stage_name: stage
+                });
+
+                fetch('https://ntfy.sh/' + NTFY_TOPIC, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Title': '✅ Update sent: ' + PROJECT_NAME, 'Priority': 'high', 'Tags': 'update' },
+                    body: JSON.stringify({ message: msg, stage: stage, sent_to: CLIENT_EMAIL })
+                }).catch(() => {});
+
+                alert('Update email sent to client. ntfy notification sent to you.');
+                document.getElementById('adminMessage').value = '';
+            } catch (err) {
+                alert('Email failed. Check your EmailJS credentials in the code.\n\nError: ' + (err.text || err.message));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send Email Update to Client';
+            }
+        }
+
         async function submitFeedback() {
             const name = document.getElementById('fbName').value.trim();
             const message = document.getElementById('fbMessage').value.trim();
@@ -215,7 +304,7 @@
                     body: JSON.stringify(payload)
                 });
 
-                fetch('https://ntfy.sh/shopnasgfx-tracker', {
+                fetch('https://ntfy.sh/' + NTFY_TOPIC, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Title': '💬 New Feedback: Miikko.Inc', 'Priority': 'high', 'Tags': 'feedback' },
                     body: JSON.stringify({ name, message, project: 'Miikko.Inc' })
