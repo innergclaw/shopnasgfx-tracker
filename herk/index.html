@@ -9,11 +9,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #1a1a1a; min-height: 100vh; }
         .nav { padding: 0.85rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; background: #fff; border-bottom: 1px solid #e9ecef; position: sticky; top: 0; z-index: 100; }
-        .nav-logo { height: 32px; width: auto; border-radius: 6px; }
         .nav-title { font-size: 0.85rem; font-weight: 600; color: #0088cc; }
         .project-header { padding: 2rem 1.25rem 1.5rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .project-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .project-meta { font-size: 0.75rem; color: #6c757d; }
+        
+        /* Payment Status Banners */
+        .paid-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(40, 167, 69, 0.08); border: 1px solid rgba(40, 167, 69, 0.2); border-radius: 10px; font-size: 0.8rem; color: #28a745; font-weight: 500; text-align: center; }
+        .payment-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 10px; font-size: 0.8rem; color: #dc2626; font-weight: 500; text-align: center; }
+        
+        /* Progress Tracker */
         .tracker { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .progress-bar { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 0 0.5rem; }
         .progress-line { position: absolute; top: 18px; left: 32px; right: 32px; height: 3px; background: #e9ecef; border-radius: 2px; z-index: 0; }
@@ -25,21 +30,35 @@
         .stage-label { font-size: 0.6rem; font-weight: 600; color: #adb5bd; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; }
         .stage.active .stage-label, .stage.completed .stage-label { color: #1a1a1a; }
         .stage-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(0, 136, 204, 0.08); border: 1px solid rgba(0, 136, 204, 0.2); border-radius: 10px; font-size: 0.8rem; color: #0088cc; font-weight: 500; text-align: center; }
-        .preview-section { padding: 1.5rem 1.25rem; }
-        .section-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; color: #1a1a1a; }
+        
+        /* Project Brief Section */
+        .brief-section { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
+        .section-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; }
+        .brief-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 10px; padding: 1rem; font-size: 0.8rem; color: #495057; line-height: 1.6; }
+        .brief-card strong { color: #1a1a1a; }
+        
+        /* Preview Section */
+        .preview-section { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
+        .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
         .preview-card { background: #fff; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden; }
         .preview-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #f0f0f0; display: block; }
-        .preview-placeholder { width: 100%; aspect-ratio: 16/9; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #adb5bd; }
-        .preview-info { padding: 0.75rem 1rem; font-size: 0.72rem; color: #6c757d; }
-        .timeline { padding: 0 1.25rem 1.5rem; }
+        .preview-placeholder { width: 100%; aspect-ratio: 16/9; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #adb5bd; text-align: center; padding: 2rem; }
+        .preview-info { padding: 0.75rem 1rem; font-size: 0.72rem; color: #6c757d; background: #f8f9fa; }
+        
+        /* Timeline */
+        .timeline { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .timeline-item { display: flex; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid #f0f0f0; }
+        .timeline-item:last-child { border-bottom: none; }
         .timeline-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 0.35rem; flex-shrink: 0; }
         .dot-blue { background: #0088cc; }
         .dot-green { background: #28a745; }
+        .dot-yellow { background: #f59e0b; }
         .dot-grey { background: #adb5bd; }
         .timeline-text { font-size: 0.75rem; color: #495057; line-height: 1.4; }
         .timeline-text strong { color: #1a1a1a; }
         .timeline-time { font-size: 0.6rem; color: #adb5bd; margin-top: 0.15rem; }
+        
+        /* Feedback Section */
         .feedback-section { padding: 1.5rem 1.25rem; background: #fff; border-top: 1px solid #e9ecef; }
         .feedback-form { max-width: 500px; margin: 0 auto; }
         .feedback-form label { display: block; font-size: 0.72rem; font-weight: 600; color: #495057; margin-bottom: 0.3rem; }
@@ -53,26 +72,24 @@
         .success-box { display: none; text-align: center; padding: 2rem; background: #fff; border: 1px solid #28a745; border-radius: 12px; }
         .success-box.show { display: block; }
         .feedback-form.hide { display: none; }
-        .footer { padding: 1.25rem; text-align: center; font-size: 0.6rem; color: #adb5bd; border-top: 1px solid #e9ecef; }
+        
+        /* Footer */
+        .footer { padding: 1.25rem; text-align: center; font-size: 0.6rem; color: #adb5bd; border-top: 1px solid #e9ecef; background: #fff; }
         .footer a { color: #0088cc; text-decoration: none; }
-        .payment-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 10px; font-size: 0.8rem; color: #dc2626; font-weight: 500; text-align: center; }
+        
         @media (min-width: 768px) {
-            .project-header { padding: 2.5rem 2rem; }
+            .project-header, .brief-section, .preview-section, .timeline, .feedback-section { padding: 2rem; }
             .project-name { font-size: 1.5rem; }
             .tracker { padding: 2rem; }
             .stage-dot { width: 42px; height: 42px; font-size: 0.8rem; }
             .progress-line { top: 20px; left: 40px; right: 40px; }
             .stage-label { font-size: 0.68rem; }
-            .preview-section, .timeline, .feedback-section { padding: 1.5rem 2rem; }
         }
     </style>
 </head>
 <body>
     <nav class="nav">
-        <div style="display:flex;align-items:center;gap:0.75rem;">
-            <img src="../nasgfx.png" alt="ShopNasGfx" class="nav-logo">
-            <div class="nav-title">Order Tracker</div>
-        </div>
+        <div class="nav-title">SHOPNASGFX ORDER TRACKER</div>
     </nav>
 
     <div class="project-header">
@@ -91,7 +108,7 @@
             </div>
             <div class="stage active" data-stage="2">
                 <div class="stage-dot">🎨</div>
-                <div class="stage-label">In Progress</div>
+                <div class="stage-label">Design</div>
             </div>
             <div class="stage" data-stage="3">
                 <div class="stage-dot">👁️</div>
@@ -103,41 +120,52 @@
             </div>
             <div class="stage" data-stage="5">
                 <div class="stage-dot">✅</div>
-                <div class="stage-label">Final</div>
+                <div class="stage-label">Launch</div>
             </div>
         </div>
     </div>
 
-    <div class="stage-banner">📍 Current Stage: In Progress — Awaiting payment to release previews</div>
+    <div class="stage-banner">📍 Current Stage: In Progress — Awaiting payment to unlock previews</div>
+
+    <div class="brief-section">
+        <div class="section-title">Project Brief</div>
+        <div class="brief-card">
+            <strong>Client:</strong> Terry Gaskins<br>
+            <strong>Business:</strong> Chicken Man Herk<br>
+            <strong>Project:</strong> Logo Design<br>
+            <strong>Amount:</strong> $175 (Pending Payment)<br>
+            <strong>Deliverables:</strong> Master Logo, Unlimited Edits, Master Files (PNG, JPEG, PDF, AI/PSD)
+        </div>
+    </div>
 
     <div class="preview-section">
-        <div class="section-title">Current Preview (4 Concepts)</div>
-        <div class="preview-card">
-            <div class="preview-placeholder" style="padding:2rem;text-align:center;">
-                <div>🔒 <strong>Previews Locked</strong><br><br>
-                4 watermarked logo concepts have been created.<br>
-                Previews will be added here once the pending $175 payment is received.</div>
+        <div class="section-title">Previews</div>
+        <div class="preview-grid">
+            <div class="preview-card">
+                <div class="preview-placeholder">
+                    🔒 <strong>Previews Locked</strong><br><br>
+                    Logo concepts are ready but locked.<br>
+                    Payment of $175 will unlock access to previews.
+                </div>
+                <div class="preview-info">Awaiting payment to unlock</div>
             </div>
-            <div class="preview-info">Updated 2026-04-13 — Awaiting payment to unlock previews</div>
         </div>
     </div>
 
     <div class="timeline">
-        <div class="section-title">Activity</div>
-        <div id="activityFeed">
-            <div class="timeline-item">
-                <div class="timeline-dot dot-blue"></div>
-                <div>
-                    <div class="timeline-text"><strong>In Progress</strong> — 4 watermarked logo previews added</div>
-                    <div class="timeline-time">2026-04-09</div>
-                </div>
+        <div class="section-title">Activity Timeline</div>
+        <div class="timeline-item">
+            <div class="timeline-dot dot-blue"></div>
+            <div>
+                <div class="timeline-text"><strong>In Progress</strong> — Logo concepts created, awaiting payment to release</div>
+                <div class="timeline-time">2026-04-13</div>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-dot dot-green"></div>
-                <div>
-                    <div class="timeline-text"><strong>Received</strong> — Order confirmed, design started</div>
-                    <div class="timeline-time">2026-04-06</div>
-                </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot dot-yellow"></div>
+            <div>
+                <div class="timeline-text"><strong>Order Received</strong> — Project details confirmed</div>
+                <div class="timeline-time">2026-04-06</div>
             </div>
         </div>
     </div>
@@ -148,9 +176,7 @@
             <label>Your Name</label>
             <input type="text" id="fbName" placeholder="Your name" required>
             <label>Feedback / Changes Needed</label>
-            <textarea id="fbMessage" placeholder="Describe what you'd like changed or any notes..." required></textarea>
-            <label>Reference Image (optional)</label>
-            <input type="url" id="fbImage" placeholder="Paste an image URL if helpful">
+            <textarea id="fbMessage" placeholder="Describe what you'd like changed..." required></textarea>
             <button class="submit-btn" id="submitBtn" onclick="submitFeedback()">Submit Feedback</button>
             <div class="feedback-note">Your feedback will be sent directly to the designer</div>
         </div>
@@ -169,37 +195,25 @@
         async function submitFeedback() {
             const name = document.getElementById('fbName').value.trim();
             const message = document.getElementById('fbMessage').value.trim();
-            const image = document.getElementById('fbImage').value.trim();
-
             if (!name || !message) return alert('Please fill in your name and feedback.');
-
+            
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.textContent = 'Submitting...';
-
+            
             try {
-                const payload = {
-                    project: 'Chicken Man Herk',
-                    projectName: 'Chicken Man Herk — Logo Design',
-                    client: 'Terry Gaskins',
-                    name,
-                    message,
-                    image: image || null,
-                    timestamp: new Date().toISOString()
-                };
-
                 await fetch('https://formspree.io/f/xpwdkqbl', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        project: 'Chicken Man Herk',
+                        client: 'Terry Gaskins',
+                        name,
+                        message,
+                        timestamp: new Date().toISOString()
+                    })
                 });
-
-                fetch('https://ntfy.sh/shopnasgfx-tracker', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Title': '💬 New Feedback: Chicken Man Herk', 'Priority': 'high', 'Tags': 'feedback' },
-                    body: JSON.stringify({ name, message, project: 'Chicken Man Herk' })
-                }).catch(() => {});
-
+                
                 document.getElementById('feedbackForm').classList.add('hide');
                 document.getElementById('successBox').classList.add('show');
             } catch (e) {
