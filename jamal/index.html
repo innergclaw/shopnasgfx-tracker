@@ -234,11 +234,43 @@
             const message = document.getElementById('fbMessage').value.trim();
             if (!name || !message) return alert('Please fill in your name and feedback.');
             
+            // Check for APPROVAL keyword (case insensitive)
+            const isApproval = /\bAPPROVED\b/i.test(message);
+            
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = 'Submitting...';
+            btn.textContent = isApproval ? 'Processing Approval...' : 'Submitting...';
+            
+            // Get current stage from the active stage element
+            const activeStage = document.querySelector('.stage.active');
+            const currentStageNum = activeStage ? parseInt(activeStage.dataset.stage) : 2;
+            
+            // Determine next stage based on current stage
+            let nextStageNum = currentStageNum;
+            let newStageName = '';
+            let progressWidth = '40%';
+            
+            if (isApproval) {
+                if (currentStageNum === 3) { // Review → Revisions
+                    nextStageNum = 4;
+                    newStageName = 'Revisions';
+                    progressWidth = '75%';
+                } else if (currentStageNum === 4) { // Revisions → Launch
+                    nextStageNum = 5;
+                    newStageName = 'Launch';
+                    progressWidth = '100%';
+                } else if (currentStageNum === 2) { // Design → Review
+                    nextStageNum = 3;
+                    newStageName = 'Review';
+                    progressWidth = '50%';
+                } else if (currentStageNum === 5) { // Already at Launch
+                    newStageName = 'Launch';
+                    progressWidth = '100%';
+                }
+            }
             
             try {
+                // Send to Formspree (keep existing email functionality)
                 await fetch('https://formspree.io/f/xpwdkqbl', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -247,17 +279,112 @@
                         client: 'Jamal',
                         name,
                         message,
+                        isApproval: isApproval,
+                        currentStage: currentStageNum,
                         timestamp: new Date().toISOString()
                     })
                 });
                 
-                document.getElementById('feedbackForm').classList.add('hide');
-                document.getElementById('successBox').classList.add('show');
+                // Send ntfy.sh push notification
+                const ntfyPayload = isApproval 
+                    ? `🎉 APPROVED: Hybrid Human — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
+                    : `💬 Feedback: Hybrid Human — ${name} submitted feedback`;
+                    
+                await fetch('https://ntfy.sh/shopnasgfx-jamal', {
+                    method: 'POST',
+                    headers: { 'Title': isApproval ? '✅ Client Approved!' : '💬 New Feedback', 'Priority': isApproval ? 'high' : 'default' },
+                    body: ntfyPayload
+                });
+                
+                // If approval detected, update the UI
+                if (isApproval && nextStageNum !== currentStageNum) {
+                    updateTrackerStage(currentStageNum, nextStageNum, progressWidth, newStageName);
+                    addApprovalTimelineEntry(name);
+                }
+                
+                // Show appropriate success message
+                if (isApproval) {
+                    showApprovalSuccess(name, newStageName || 'Launch');
+                } else {
+                    document.getElementById('feedbackForm').classList.add('hide');
+                    document.getElementById('successBox').classList.add('show');
+                }
             } catch (e) {
                 btn.disabled = false;
                 btn.textContent = 'Submit Feedback';
                 alert('Something went wrong. Please try again.');
             }
+        }
+        
+        function updateTrackerStage(currentStage, nextStage, progressWidth, stageName) {
+            // Update progress bar
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) progressFill.style.width = progressWidth;
+            
+            // Update stage classes
+            const stages = document.querySelectorAll('.stage');
+            stages.forEach((stage, index) => {
+                const stageNum = index + 1;
+                stage.classList.remove('active', 'completed');
+                
+                if (stageNum < nextStage) {
+                    stage.classList.add('completed');
+                } else if (stageNum === nextStage) {
+                    stage.classList.add('active');
+                }
+            });
+            
+            // Update stage banner
+            const stageBanner = document.querySelector('.stage-banner');
+            if (stageBanner) {
+                stageBanner.textContent = `📍 Current Stage: ${stageName} — Client approved on ${new Date().toLocaleDateString()}`;
+                stageBanner.style.background = 'rgba(40, 167, 69, 0.08)';
+                stageBanner.style.borderColor = 'rgba(40, 167, 69, 0.2)';
+                stageBanner.style.color = '#28a745';
+            }
+        }
+        
+        function addApprovalTimelineEntry(clientName) {
+            const timeline = document.querySelector('.timeline');
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            const entry = document.createElement('div');
+            entry.className = 'timeline-item';
+            entry.innerHTML = `
+                <div class="timeline-dot dot-green"></div>
+                <div>
+                    <div class="timeline-text"><strong>Client Approved</strong> — ${clientName} approved the design ✓</div>
+                    <div class="timeline-time">${dateStr} at ${timeStr}</div>
+                </div>
+            `;
+            
+            // Insert at the top of timeline (after section title)
+            const sectionTitle = timeline.querySelector('.section-title');
+            if (sectionTitle && sectionTitle.nextSibling) {
+                timeline.insertBefore(entry, sectionTitle.nextSibling);
+            } else {
+                timeline.appendChild(entry);
+            }
+        }
+        
+        function showApprovalSuccess(clientName, stageName) {
+            const form = document.getElementById('feedbackForm');
+            const successBox = document.getElementById('successBox');
+            
+            // Update success box for approval
+            successBox.innerHTML = `
+                <div style="font-size:2.5rem;margin-bottom:0.5rem;">🎉</div>
+                <div style="font-weight:600;margin-bottom:0.25rem;color:#28a745;">Approval Received!</div>
+                <div style="font-size:0.85rem;color:#6c757d;margin-bottom:0.5rem;">Thanks ${clientName}! Your approval has been recorded.</div>
+                <div style="font-size:0.75rem;color:#28a745;background:rgba(40,167,69,0.1);padding:0.5rem;border-radius:6px;">
+                    Project moved to: <strong>${stageName}</strong>
+                </div>
+            `;
+            
+            form.classList.add('hide');
+            successBox.classList.add('show');
         }
     </script>
 </body>
