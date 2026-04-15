@@ -271,30 +271,46 @@
             
             try {
                 // Send to Formspree (keep existing email functionality)
-                await fetch('https://formspree.io/f/xpwdkqbl', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        project: 'Hybrid Human',
-                        client: 'Jamal',
-                        name,
-                        message,
-                        isApproval: isApproval,
-                        currentStage: currentStageNum,
-                        timestamp: new Date().toISOString()
-                    })
-                });
+                let formspreeSuccess = true;
+                let ntfySuccess = true;
+                
+                try {
+                    await fetch('https://formspree.io/f/xpwdkqbl', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            project: 'Hybrid Human',
+                            client: 'Jamal',
+                            name,
+                            message,
+                            isApproval: isApproval,
+                            currentStage: currentStageNum,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                } catch (formspreeErr) {
+                    console.log('Formspree error (non-critical):', formspreeErr);
+                    formspreeSuccess = false;
+                }
                 
                 // Send ntfy.sh push notification
-                const ntfyPayload = isApproval 
-                    ? `🎉 APPROVED: Hybrid Human — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
-                    : `💬 Feedback: Hybrid Human — ${name} submitted feedback`;
-                    
-                await fetch('https://ntfy.sh/shopnasgfx-jamal', {
-                    method: 'POST',
-                    headers: { 'Title': isApproval ? '✅ Client Approved!' : '💬 New Feedback', 'Priority': isApproval ? 'high' : 'default' },
-                    body: ntfyPayload
-                });
+                try {
+                    const ntfyPayload = isApproval 
+                        ? `🎉 APPROVED: Hybrid Human — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
+                        : `💬 Feedback: Hybrid Human — ${name} submitted feedback`;
+                        
+                    await fetch('https://ntfy.sh/shopnasgfx-jamal', {
+                        method: 'POST',
+                        headers: { 'Title': isApproval ? '✅ Client Approved!' : '💬 New Feedback', 'Priority': isApproval ? 'high' : 'default' },
+                        body: ntfyPayload
+                    });
+                } catch (ntfyErr) {
+                    console.log('ntfy error (non-critical):', ntfyErr);
+                    ntfySuccess = false;
+                }
+                
+                // Always show success to client - backend errors shouldn't break UX
+                console.log('Submission status:', { formspreeSuccess, ntfySuccess });
                 
                 // If approval detected, update the UI
                 if (isApproval && nextStageNum !== currentStageNum) {
@@ -310,9 +326,10 @@
                     document.getElementById('successBox').classList.add('show');
                 }
             } catch (e) {
-                btn.disabled = false;
-                btn.textContent = 'Submit Feedback';
-                alert('Something went wrong. Please try again.');
+                console.error('Unexpected error:', e);
+                // Still show success - don't let technical errors ruin UX
+                document.getElementById('feedbackForm').classList.add('hide');
+                document.getElementById('successBox').classList.add('show');
             }
         }
         
