@@ -197,8 +197,7 @@
                 else if (currentStageNum === 4) { nextStageNum = 5; newStageName = 'Launch'; progressWidth = '100%'; }
             }
             try {
-                try { await fetch('https://formspree.io/f/xpwdkqbl', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ project: 'Blessed Rich Black Girl', client: 'Amber Washington', name, message, isApproval, currentStage: currentStageNum, timestamp: new Date().toISOString() }) }); } catch(e) {}
-                try { await fetch('https://ntfy.sh/shopnasgfx-amber', { method: 'POST', headers: { 'Title': isApproval ? '✅ Client Approved!' : '💬 New Feedback', 'Priority': isApproval ? 'high' : 'default' }, body: isApproval ? `🎉 APPROVED: Blessed Rich Black Girl — ${name} approved (Stage ${currentStageNum} → ${nextStageNum})` : `💬 Feedback: Blessed Rich Black Girl — ${name} submitted feedback` }); } catch(e) {}
+                try { await fetch('http://100.125.144.34:3456/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ project: 'Blessed Rich Black Girl', client: 'Amber Washington', name, message, isApproval, currentStage: currentStageNum, timestamp: new Date().toISOString() }) }); } catch(e) {}
                 if (isApproval && nextStageNum !== currentStageNum) {
                     const progressFill = document.querySelector('.progress-fill');
                     if (progressFill) progressFill.style.width = progressWidth;
@@ -232,5 +231,10 @@
             }
         }
     </script>
+<script src="../shared.js"></script>
+<script>
+// Load persisted timeline from API
+loadTimelineEntries("amber").then(entries => renderApiTimeline(entries));
+</script>
 </body>
 </html>

@@ -271,7 +271,7 @@
                 let ntfySuccess = true;
                 
                 try {
-                    await fetch('https://formspree.io/f/xpwdkqbl', {
+                    await fetch('http://100.125.144.34:3456/feedback', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify({
@@ -295,9 +295,8 @@
                         ? `🎉 APPROVED: Miikko.Inc — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
                         : `💬 Feedback: Miikko.Inc — ${name} submitted feedback`;
                         
-                    await fetch('https://ntfy.sh/shopnasgfx-vivian', {
+                    await fetch('http://100.125.144.34:3456/feedback', {
                         method: 'POST',
-                        headers: { 'Title': isApproval ? '✅ Client Approved!' : '💬 New Feedback', 'Priority': isApproval ? 'high' : 'default' },
                         body: ntfyPayload
                     });
                 } catch (ntfyErr) {
@@ -400,5 +399,10 @@
             successBox.classList.add('show');
         }
     </script>
+<script src="../shared.js"></script>
+<script>
+// Load persisted timeline from API
+loadTimelineEntries("vivian").then(entries => renderApiTimeline(entries));
+</script>
 </body>
 </html>

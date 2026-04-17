@@ -206,7 +206,7 @@
                 let formspreeSuccess = true;
                 
                 try {
-                    await fetch('https://formspree.io/f/xpwdkqbl', {
+                    await fetch('http://100.125.144.34:3456/feedback', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify({
@@ -235,5 +235,10 @@
             }
         }
     </script>
+<script src="../shared.js"></script>
+<script>
+// Load persisted timeline from API
+loadTimelineEntries("herk").then(entries => renderApiTimeline(entries));
+</script>
 </body>
 </html>
