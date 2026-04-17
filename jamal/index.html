@@ -275,7 +275,7 @@
                 let ntfySuccess = true;
                 
                 try {
-                    await fetch('http://100.125.144.34:3456/feedback', {
+                    await fetch('https://innergneo.tail549d84.ts.net/feedback', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify({
@@ -299,7 +299,7 @@
                         ? `🎉 APPROVED: Hybrid Human — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
                         : `💬 Feedback: Hybrid Human — ${name} submitted feedback`;
                         
-                    await fetch('http://100.125.144.34:3456/feedback', {
+                    await fetch('https://innergneo.tail549d84.ts.net/feedback', {
                         method: 'POST',
                         body: ntfyPayload
                     });

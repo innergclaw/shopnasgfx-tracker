@@ -1,7 +1,7 @@
 // ShopNasGfx Tracker — Shared Feedback Backend
 // Replace Formspree + ntfy calls with Neo API
 
-const SHOPNASGFX_API = "http://100.125.144.34:3456";
+const SHOPNASGFX_API = "https://innergneo.tail549d84.ts.net";
 
 // Submit feedback to Neo API (replaces Formspree + ntfy)
 async function submitFeedbackToApi(data) {
