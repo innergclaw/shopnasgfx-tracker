@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miikko.Inc — ShopNasGfx Tracker</title>
+    <title>Miikko.Inc - ShopNasGfx Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @font-face { font-family: 'Forzan Light'; src: url('fonts/ForzanLight-ALWAA.ttf') format('truetype'); font-weight: 300; font-style: normal; }
@@ -20,11 +20,11 @@
         .project-header { padding: 2rem 1.25rem 1.5rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .project-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .project-meta { font-size: 0.75rem; color: #6c757d; }
-        
+
         /* Payment Status Banners */
         .paid-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(40, 167, 69, 0.08); border: 1px solid rgba(40, 167, 69, 0.2); border-radius: 10px; font-size: 0.8rem; color: #28a745; font-weight: 500; text-align: center; }
         .payment-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 10px; font-size: 0.8rem; color: #dc2626; font-weight: 500; text-align: center; }
-        
+
         /* Progress Tracker */
         .tracker { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .progress-bar { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 0 0.5rem; }
@@ -37,28 +37,28 @@
         .stage-label { font-size: 0.6rem; font-weight: 600; color: #adb5bd; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.3px; text-align: center; }
         .stage.active .stage-label, .stage.completed .stage-label { color: #1a1a1a; }
         .stage-banner { margin: 1rem 1.25rem; padding: 0.85rem 1rem; background: rgba(0, 136, 204, 0.08); border: 1px solid rgba(0, 136, 204, 0.2); border-radius: 10px; font-size: 0.8rem; color: #0088cc; font-weight: 500; text-align: center; }
-        
+
         /* Project Brief Section */
         .brief-section { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .section-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.5px; }
         .brief-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 10px; padding: 1rem; font-size: 0.8rem; color: #495057; line-height: 1.6; }
         .brief-card strong { color: #1a1a1a; }
-        
+
         /* Preview Section */
         .preview-section { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
-        .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .preview-grid { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; margin: 0 auto; }
         .preview-card { background: #fff; border: 1px solid #e9ecef; border-radius: 12px; overflow: hidden; }
         .preview-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #f0f0f0; display: block; }
         .preview-placeholder { width: 100%; aspect-ratio: 16/9; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #adb5bd; text-align: center; padding: 2rem; }
-        .preview-info { padding: 0.75rem 1rem; font-size: 0.72rem; color: #6c757d; background: #f8f9fa; }
-        
+        .preview-info { padding: 0.75rem 1rem; font-size: 0.72rem; color: #6c757d; background: #f8f9fa; text-align: center; }
+
         /* Reference Images */
         .reference-section { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
-        .reference-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .reference-grid { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; margin: 0 auto; }
         .reference-card { background: #fff; border: 1px solid #e9ecef; border-radius: 10px; overflow: hidden; }
         .reference-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #f0f0f0; display: block; }
         .reference-info { padding: 0.5rem 0.75rem; font-size: 0.7rem; color: #6c757d; background: #f8f9fa; }
-        
+
         /* Timeline */
         .timeline { padding: 1.5rem 1.25rem; background: #fff; border-bottom: 1px solid #e9ecef; }
         .timeline-item { display: flex; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid #f0f0f0; }
@@ -71,7 +71,7 @@
         .timeline-text { font-size: 0.75rem; color: #495057; line-height: 1.4; }
         .timeline-text strong { color: #1a1a1a; }
         .timeline-time { font-size: 0.6rem; color: #adb5bd; margin-top: 0.15rem; }
-        
+
         /* Feedback Section */
         .feedback-section { padding: 1.5rem 1.25rem; background: #fff; border-top: 1px solid #e9ecef; }
         .feedback-form { max-width: 500px; margin: 0 auto; }
@@ -86,11 +86,11 @@
         .success-box { display: none; text-align: center; padding: 2rem; background: #fff; border: 1px solid #28a745; border-radius: 12px; }
         .success-box.show { display: block; }
         .feedback-form.hide { display: none; }
-        
+
         /* Footer */
         .footer { padding: 1.25rem; text-align: center; font-size: 0.6rem; color: #adb5bd; border-top: 1px solid #e9ecef; background: #fff; }
         .footer a { color: #0088cc; text-decoration: none; }
-        
+
         @media (min-width: 768px) {
             .project-header, .brief-section, .preview-section, .reference-section, .timeline, .feedback-section { padding: 2rem; }
             .project-name { font-size: 1.5rem; }
@@ -107,11 +107,11 @@
     </nav>
 
     <div class="project-header">
-        <div class="project-name">Miikko.Inc — New Logo Design</div>
+        <div class="project-name">Miikko.Inc - New Logo Design</div>
         <div class="project-meta">Vivian Royster · Logo Package · Started 2026-04-12</div>
     </div>
 
-    <div class="paid-banner">✓ PAID — $115 received</div>
+    <div class="paid-banner">✓ PAID - $115 received</div>
 
     <div class="tracker">
         <div class="progress-bar">
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="stage-banner">📍 Current Stage: Review — Logo concepts ready for feedback</div>
+    <div class="stage-banner">📍 Current Stage: Review - Logo concepts ready for feedback</div>
 
     <div class="brief-section">
         <div class="section-title">Project Brief</div>
@@ -156,11 +156,11 @@
     </div>
 
     <div class="preview-section">
-        <div class="section-title">Previews — Font & Typography Options</div>
+        <div class="section-title">Previews - Font & Typography Options</div>
         <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:1rem;margin-bottom:1rem;font-size:0.85rem;color:#856404;">
             <strong>📋 Designer Note:</strong> Here are typography options for the tagline "Making Intercity Involvement Key" using your selected fonts. Let me know which direction you prefer.
             <br><br>
-            <em style="color:#6c757d;font-size:0.78rem;">💡 Fonts sourced from <a href="https://www.fontspace.com" target="_blank" style="color:#0088cc;">fontspace.com</a> — feel free to browse and send 1-2 fonts you personally like, and I will add them as preview options here.</em>
+            <em style="color:#6c757d;font-size:0.78rem;">💡 Fonts sourced from <a href="https://www.fontspace.com" target="_blank" style="color:#0088cc;">fontspace.com</a> - feel free to browse and send 1-2 fonts you personally like, and I will add them as preview options here.</em>
         </div>
         <div class="preview-grid">
             <div class="preview-card">
@@ -169,7 +169,7 @@
                     <div style="width:60px;height:1px;background:#1a1a1a;"></div>
                     <div style="font-family:'Forzan Light',sans-serif;font-size:18px;font-weight:300;color:#1a1a1a;text-align:center;line-height:1.6;">Making Intercity<br>Involvement Key</div>
                 </div>
-                <div class="preview-info">Option A — Forzan Light (fontspace.com)/div>
+                <div class="preview-info">Option A - Forzan Light (fontspace.com)/div>
             </div>
             <div class="preview-card">
                 <div class="preview-placeholder" style="background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3rem;gap:1rem;border:1px solid #e9ecef;border-radius:12px;">
@@ -177,7 +177,7 @@
                     <div style="width:60px;height:1px;background:#1a1a1a;"></div>
                     <div style="font-family:'Galvitra',sans-serif;font-size:19px;font-weight:400;color:#1a1a1a;text-align:center;line-height:1.5;">Making Intercity<br>Involvement Key</div>
                 </div>
-                <div class="preview-info">Option B — Galvitra (fontspace.com)/div>
+                <div class="preview-info">Option B - Galvitra (fontspace.com)/div>
             </div>
             <div class="preview-card">
                 <div class="preview-placeholder" style="background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:3rem;gap:1rem;border:1px solid #e9ecef;border-radius:12px;">
@@ -185,7 +185,7 @@
                     <div style="width:60px;height:1px;background:#1a1a1a;"></div>
                     <div style="font-family:'Poppins',sans-serif;font-size:18px;font-weight:300;color:#1a1a1a;text-align:center;line-height:1.5;">Making Intercity<br>Involvement Key</div>
                 </div>
-                <div class="preview-info">Option C — Poppins (fontspace.com)</div>
+                <div class="preview-info">Option C - Poppins (fontspace.com)</div>
             </div>
         </div>
     </div>
@@ -198,7 +198,7 @@
         <div class="preview-grid">
             <div class="preview-card" style="border-color:rgba(40,167,69,0.3);">
                 <a href="approved-1.jpg" target="_blank"><img src="approved-1.jpg" alt="Approved design 1" class="preview-img"></a>
-                <div class="preview-info" style="color:#28a745;">✓ Approved — Logo Mark</div>
+                <div class="preview-info" style="color:#28a745;">✓ Approved - Logo Mark</div>
             </div>
         </div>
     </div>
@@ -218,42 +218,42 @@
         <div class="timeline-item">
             <div class="timeline-dot dot-yellow"></div>
             <div>
-                <div class="timeline-text"><strong>Design Approved</strong> — Logo mark approved, moving to finalization
+                <div class="timeline-text"><strong>Design Approved</strong> - Logo mark approved, moving to finalization
             </div>
             <div class="timeline-time">2026-04-18</div>
         </div>
         <div class="timeline-item">
             <div class="timeline-dot dot-yellow"></div>
             <div>
-                <div class="timeline-text"><strong>Font Previews Updated</strong> — Forzan Light, Galvitra, Poppins typography options added</div>
+                <div class="timeline-text"><strong>Font Previews Updated</strong> - Forzan Light, Galvitra, Poppins typography options added</div>
                 <div class="timeline-time">2026-04-18</div>
             </div>
         </div>
         <div class="timeline-item">
             <div class="timeline-dot dot-yellow"></div>
             <div>
-                <div class="timeline-text"><strong>Previews Added</strong> — Logo mark concepts awaiting client approval</div>
+                <div class="timeline-text"><strong>Previews Added</strong> - Logo mark concepts awaiting client approval</div>
                 <div class="timeline-time">2026-04-15</div>
             </div>
         </div>
         <div class="timeline-item">
             <div class="timeline-dot dot-blue"></div>
             <div>
-                <div class="timeline-text"><strong>Review Stage</strong> — Logo concepts ready for client feedback</div>
+                <div class="timeline-text"><strong>Review Stage</strong> - Logo concepts ready for client feedback</div>
                 <div class="timeline-time">2026-04-14</div>
             </div>
         </div>
         <div class="timeline-item">
             <div class="timeline-dot dot-blue"></div>
             <div>
-                <div class="timeline-text"><strong>Design Started</strong> — Working on logo concepts</div>
+                <div class="timeline-text"><strong>Design Started</strong> - Working on logo concepts</div>
                 <div class="timeline-time">2026-04-12</div>
             </div>
         </div>
         <div class="timeline-item">
             <div class="timeline-dot dot-green"></div>
             <div>
-                <div class="timeline-text"><strong>Payment Received</strong> — $115 · Project activated</div>
+                <div class="timeline-text"><strong>Payment Received</strong> - $115 · Project activated</div>
                 <div class="timeline-time">2026-04-12</div>
             </div>
         </div>
@@ -285,23 +285,23 @@
             const name = document.getElementById('fbName').value.trim();
             const message = document.getElementById('fbMessage').value.trim();
             if (!name || !message) return alert('Please fill in your name and feedback.');
-            
+
             // Check for APPROVAL keyword (case insensitive)
             const isApproval = /\bAPPROVED\b/i.test(message);
-            
+
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.textContent = isApproval ? 'Processing Approval...' : 'Submitting...';
-            
+
             // Get current stage from the active stage element
             const activeStage = document.querySelector('.stage.active');
             const currentStageNum = activeStage ? parseInt(activeStage.dataset.stage) : 3;
-            
+
             // Determine next stage based on current stage
             let nextStageNum = currentStageNum;
             let newStageName = '';
             let progressWidth = '50%';
-            
+
             if (isApproval) {
                 if (currentStageNum === 3) { // Review → Revisions
                     nextStageNum = 4;
@@ -316,12 +316,12 @@
                     progressWidth = '100%';
                 }
             }
-            
+
             try {
                 // Send to Formspree (keep existing email functionality)
                 let formspreeSuccess = true;
                 let ntfySuccess = true;
-                
+
                 try {
                     await fetch('https://innergneo.tail549d84.ts.net/feedback', {
                         method: 'POST',
@@ -340,13 +340,13 @@
                     console.log('Formspree error (non-critical):', formspreeErr);
                     formspreeSuccess = false;
                 }
-                
+
                 // Send ntfy.sh push notification
                 try {
-                    const ntfyPayload = isApproval 
-                        ? `🎉 APPROVED: Miikko.Inc — ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
-                        : `💬 Feedback: Miikko.Inc — ${name} submitted feedback`;
-                        
+                    const ntfyPayload = isApproval
+                        ? `🎉 APPROVED: Miikko.Inc - ${name} approved the project (Stage: ${currentStageNum} → ${nextStageNum})`
+                        : `💬 Feedback: Miikko.Inc - ${name} submitted feedback`;
+
                     await fetch('https://innergneo.tail549d84.ts.net/feedback', {
                         method: 'POST',
                         body: ntfyPayload
@@ -355,16 +355,16 @@
                     console.log('ntfy error (non-critical):', ntfyErr);
                     ntfySuccess = false;
                 }
-                
+
                 // Always show success to client - backend errors shouldn't break UX
                 console.log('Submission status:', { formspreeSuccess, ntfySuccess });
-                
+
                 // If approval detected, update the UI
                 if (isApproval && nextStageNum !== currentStageNum) {
                     updateTrackerStage(currentStageNum, nextStageNum, progressWidth, newStageName);
                     addApprovalTimelineEntry(name);
                 }
-                
+
                 // Show appropriate success message
                 if (isApproval) {
                     showApprovalSuccess(name, newStageName || 'Launch');
@@ -379,51 +379,51 @@
                 document.getElementById('successBox').classList.add('show');
             }
         }
-        
+
         function updateTrackerStage(currentStage, nextStage, progressWidth, stageName) {
             // Update progress bar
             const progressFill = document.querySelector('.progress-fill');
             if (progressFill) progressFill.style.width = progressWidth;
-            
+
             // Update stage classes
             const stages = document.querySelectorAll('.stage');
             stages.forEach((stage, index) => {
                 const stageNum = index + 1;
                 stage.classList.remove('active', 'completed');
-                
+
                 if (stageNum < nextStage) {
                     stage.classList.add('completed');
                 } else if (stageNum === nextStage) {
                     stage.classList.add('active');
                 }
             });
-            
+
             // Update stage banner
             const stageBanner = document.querySelector('.stage-banner');
             if (stageBanner) {
-                stageBanner.textContent = `📍 Current Stage: ${stageName} — Client approved on ${new Date().toLocaleDateString()}`;
+                stageBanner.textContent = `📍 Current Stage: ${stageName} - Client approved on ${new Date().toLocaleDateString()}`;
                 stageBanner.style.background = 'rgba(40, 167, 69, 0.08)';
                 stageBanner.style.borderColor = 'rgba(40, 167, 69, 0.2)';
                 stageBanner.style.color = '#28a745';
             }
         }
-        
+
         function addApprovalTimelineEntry(clientName) {
             const timeline = document.querySelector('.timeline');
             const now = new Date();
             const dateStr = now.toISOString().split('T')[0];
             const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
+
             const entry = document.createElement('div');
             entry.className = 'timeline-item';
             entry.innerHTML = `
                 <div class="timeline-dot dot-green"></div>
                 <div>
-                    <div class="timeline-text"><strong>Client Approved</strong> — ${clientName} approved the design ✓</div>
+                    <div class="timeline-text"><strong>Client Approved</strong> - ${clientName} approved the design ✓</div>
                     <div class="timeline-time">${dateStr} at ${timeStr}</div>
                 </div>
             `;
-            
+
             // Insert at the top of timeline (after section title)
             const sectionTitle = timeline.querySelector('.section-title');
             if (sectionTitle && sectionTitle.nextSibling) {
@@ -432,11 +432,11 @@
                 timeline.appendChild(entry);
             }
         }
-        
+
         function showApprovalSuccess(clientName, stageName) {
             const form = document.getElementById('feedbackForm');
             const successBox = document.getElementById('successBox');
-            
+
             // Update success box for approval
             successBox.innerHTML = `
                 <div style="font-size:2.5rem;margin-bottom:0.5rem;">🎉</div>
@@ -446,7 +446,7 @@
                     Project moved to: <strong>${stageName}</strong>
                 </div>
             `;
-            
+
             form.classList.add('hide');
             successBox.classList.add('show');
         }
