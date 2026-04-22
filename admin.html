@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard — ShopNasGfx Tracker</title>
+    <title>SHOPNASGFXTRACKER2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,79 +39,8 @@
             min-height: 100vh;
         }
 
-        /* Login */
-        .login-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-box {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 48px 40px;
-            max-width: 380px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .login-box h1 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
-
-        .login-box .subtitle {
-            color: var(--muted);
-            font-size: 0.85rem;
-            margin-bottom: 32px;
-        }
-
-        .login-box input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 1rem;
-            margin-bottom: 16px;
-            font-family: inherit;
-        }
-
-        .login-box input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .login-box button {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-family: inherit;
-        }
-
-        .login-box button:hover { background: var(--accent-hover); }
-
-        .login-error {
-            color: var(--red);
-            font-size: 0.85rem;
-            margin-top: 12px;
-            display: none;
-        }
-
         /* Dashboard */
-        .dashboard { display: none; }
-        .dashboard.active { display: block; }
+        .dashboard { display: block; }
 
         .topbar {
             padding: 16px 24px;
@@ -463,25 +392,12 @@
 </head>
 <body>
 
-    <!-- Login -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <h1>🔒 Admin Access</h1>
-            <p class="subtitle">ShopNasGfx Project Tracker</p>
-            <input type="password" id="passwordInput" placeholder="Enter password" autofocus>
-            <button onclick="handleLogin()">Unlock Dashboard</button>
-            <p class="login-error" id="loginError">Incorrect password. Try again.</p>
-        </div>
-    </div>
-
-    <!-- Dashboard -->
-    <div class="dashboard" id="dashboard">
+    <div class="dashboard active" id="dashboard">
         <div class="topbar">
-            <h1>ShopNasGfx <span>Dashboard</span></h1>
+            <h1>SHOPNASGFXTRACKER<span>2026</span></h1>
             <div class="topbar-actions">
                 <button class="topbar-btn primary" onclick="openAddModal()">+ New Project</button>
                 <button class="topbar-btn" onclick="exportData()">Export</button>
-                <button class="topbar-btn" onclick="handleLogout()">Logout</button>
             </div>
         </div>
 
@@ -550,9 +466,7 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        const PASSWORD = 'shop2026';
         const STORAGE_KEY = 'shopnasgfx_projects';
-        const AUTH_KEY = 'shopnasgfx_auth';
 
         // Default projects
         const defaultProjects = [
@@ -581,38 +495,7 @@
             return 'p' + Date.now().toString(36);
         }
 
-        // Auth
-        function handleLogin() {
-            const pw = document.getElementById('passwordInput').value;
-            if (pw === PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, '1');
-                showDashboard();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-            }
-        }
-
-        function handleLogout() {
-            sessionStorage.removeItem(AUTH_KEY);
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('passwordInput').value = '';
-        }
-
-        function showDashboard() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            render();
-        }
-
-        // Check auth on load
-        if (sessionStorage.getItem(AUTH_KEY)) showDashboard();
-
-        // Enter key for login
-        document.getElementById('passwordInput').addEventListener('keydown', e => {
-            if (e.key === 'Enter') handleLogin();
-        });
+        render();
 
         // Render
         function render() {
