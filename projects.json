@@ -1,0 +1,113 @@
+{
+  "lastUpdated": "2026-04-26",
+  "projects": [
+    {
+      "id": "p1",
+      "name": "Vivian Royster",
+      "business": "Miikko.Inc",
+      "service": "Logo Package",
+      "amount": 115,
+      "deposit": 115,
+      "stage": "Completed",
+      "notes": "Final files delivered",
+      "slug": "vivian",
+      "date": "2026-04-12"
+    },
+    {
+      "id": "p2",
+      "name": "Helena",
+      "business": "Honey & Friends",
+      "service": "Branding Package",
+      "amount": 175,
+      "deposit": 175,
+      "stage": "Revisions",
+      "notes": "Final tweaks in progress",
+      "slug": "helena",
+      "date": "2026-04-01"
+    },
+    {
+      "id": "p3",
+      "name": "Jamal",
+      "business": "Hybrid Human",
+      "service": "Brand Identity Package",
+      "amount": 350,
+      "deposit": 100,
+      "stage": "Design",
+      "notes": "$100 deposit, $250 remaining. Athleisure/streetwear, alien head, HH wordmark",
+      "slug": "jamal",
+      "date": "2026-03-30"
+    },
+    {
+      "id": "p4",
+      "name": "Nydeah",
+      "business": "",
+      "service": "Logo Design",
+      "amount": 99,
+      "deposit": 99,
+      "stage": "Design",
+      "notes": "Fully paid",
+      "slug": "nydeah",
+      "date": "2026-03-28"
+    },
+    {
+      "id": "p5",
+      "name": "Kevin",
+      "business": "",
+      "service": "Logo Design",
+      "amount": 75,
+      "deposit": 75,
+      "stage": "Design",
+      "notes": "Fully paid",
+      "slug": "kevin",
+      "date": "2026-03-25"
+    },
+    {
+      "id": "p6",
+      "name": "Zianna",
+      "business": "",
+      "service": "Logo Design",
+      "amount": 70,
+      "deposit": 70,
+      "stage": "Design",
+      "notes": "Fully paid",
+      "slug": "zianna",
+      "date": "2026-03-22"
+    },
+    {
+      "id": "p7",
+      "name": "Layonda",
+      "business": "",
+      "service": "Logo Design",
+      "amount": 60,
+      "deposit": 60,
+      "stage": "Design",
+      "notes": "Fully paid",
+      "slug": "layonda",
+      "date": "2026-03-20"
+    },
+    {
+      "id": "p8",
+      "name": "Amber Washington",
+      "business": "Blessed Rich Black Girl",
+      "service": "Brand Identity",
+      "amount": 175,
+      "deposit": 100,
+      "stage": "Received",
+      "notes": "$100 deposit paid",
+      "slug": "amber",
+      "date": "2026-04-17"
+    },
+    {
+      "id": "p9",
+      "name": "Terry Gaskins",
+      "business": "Chicken Man Herk",
+      "service": "Logo Package",
+      "amount": 175,
+      "deposit": 0,
+      "stage": "Design",
+      "notes": "Payment pending - $175 due before previews",
+      "slug": "herk",
+      "date": "2026-04-06"
+    }
+  ]
+}
