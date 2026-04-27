@@ -44,8 +44,8 @@
       "service": "Logo Design",
       "amount": 99,
       "deposit": 99,
-      "stage": "Design",
-      "notes": "Fully paid",
+      "stage": "Completed",
+      "notes": "Fully paid. Project complete.",
       "slug": "nydeah",
       "date": "2026-03-28"
     },
@@ -56,8 +56,8 @@
       "service": "Logo Design",
       "amount": 75,
       "deposit": 75,
-      "stage": "Design",
-      "notes": "Fully paid",
+      "stage": "Completed",
+      "notes": "Fully paid. Project complete.",
       "slug": "kevin",
       "date": "2026-03-25"
     },
@@ -92,8 +92,8 @@
       "service": "Brand Identity",
       "amount": 175,
       "deposit": 100,
-      "stage": "Received",
-      "notes": "$100 deposit paid",
+      "stage": "Review",
+      "notes": "$100 deposit paid. Preview sent to client.",
       "slug": "amber",
       "date": "2026-04-17"
     },
