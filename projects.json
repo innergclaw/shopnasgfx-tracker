@@ -60,31 +60,7 @@
       "notes": "Fully paid. Project complete.",
       "slug": "kevin",
       "date": "2026-03-25"
-    },
-    {
-      "id": "p6",
-      "name": "Zianna",
-      "business": "",
-      "service": "Logo Design",
-      "amount": 70,
-      "deposit": 70,
-      "stage": "Design",
-      "notes": "Fully paid",
-      "slug": "zianna",
-      "date": "2026-03-22"
-    },
-    {
-      "id": "p7",
-      "name": "Layonda",
-      "business": "",
-      "service": "Logo Design",
-      "amount": 60,
-      "deposit": 60,
-      "stage": "Design",
-      "notes": "Fully paid",
-      "slug": "layonda",
-      "date": "2026-03-20"
-    },
+
     {
       "id": "p8",
       "name": "Amber Washington",
